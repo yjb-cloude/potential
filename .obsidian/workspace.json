@@ -177,6 +177,9 @@
   },
   "active": "4fad49a86b82581f",
   "lastOpenFiles": [
+    "wiki/meta/progress-snapshot.md.tmp.508.8ff8a78cc639",
+    "wiki/summaries/day1-manual-test-start.md",
+    "wiki/summaries/day1-manual-test-start.md.tmp.508.9b067e23bc84",
     "wiki/meta/progress-snapshot.md",
     "wiki/meta/progress-snapshot.md.tmp.508.d988c5e55bb3",
     "wiki/meta",
@@ -197,7 +200,6 @@
     "wiki/concepts/concurrency-java.md",
     "wiki/concepts/concurrency-java.md.tmp.508.959c5293f5a8",
     "wiki/concepts/junit-testng.md",
-    "wiki/concepts/junit-testng.md.tmp.508.7379ad1e6de9",
     "wiki/concepts/rest-assured-api.md",
     "wiki/concepts/ai-agent.md",
     "wiki/concepts/rag-pattern.md",
@@ -210,8 +212,6 @@
     "wiki/concepts/test-automation-types.md",
     "wiki/syntheses/career-plan-daily-tasks.md",
     "wiki/syntheses/career-plan-testing-with-ai-java.md",
-    "templates/daily-note.md",
-    "wiki/syntheses/prompt-engineering-full-picture.md",
-    "提示词原则论文.md"
+    "templates/daily-note.md"
   ]
 }
