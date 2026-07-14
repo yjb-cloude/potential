@@ -1,0 +1,15 @@
+{
+  "newFileLocation": "current",
+  "newFileFolderPath": "inbox",
+  "attachmentFolderPath": "attachments",
+  "alwaysUpdateLinks": true,
+  "showUnsupportedFiles": false,
+  "promptDelete": true,
+  "readableLineLength": true,
+  "foldHeading": true,
+  "foldIndent": true,
+  "showLineNumber": false,
+  "spellcheck": false,
+  "defaultViewMode": "preview",
+  "showFrontmatter": false
+}

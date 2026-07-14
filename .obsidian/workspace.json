@@ -1,0 +1,217 @@
+{
+  "main": {
+    "id": "8f058df646019bfd",
+    "type": "split",
+    "children": [
+      {
+        "id": "3cdc8e5456c15b33",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "4fad49a86b82581f",
+            "type": "leaf",
+            "state": {
+              "type": "graph",
+              "state": {},
+              "icon": "lucide-git-fork",
+              "title": "关系图谱"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "d6d295b3c7a631ef",
+    "type": "split",
+    "children": [
+      {
+        "id": "2d969c613b7c277d",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "bc6b36cba802f126",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false
+              },
+              "icon": "lucide-folder-closed",
+              "title": "文件列表"
+            }
+          },
+          {
+            "id": "6099bf401c893f65",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "搜索"
+            }
+          },
+          {
+            "id": "0aea73cc338bc5a4",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "书签"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "63b75da0971b2875",
+    "type": "split",
+    "children": [
+      {
+        "id": "fde7abb35cb51db4",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "8d0cb9be5c14760a",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "反向链接"
+            }
+          },
+          {
+            "id": "439dfc8b752c4ef7",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "出链"
+            }
+          },
+          {
+            "id": "ade8c934632e89e7",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "标签"
+            }
+          },
+          {
+            "id": "5d6df295a1310e03",
+            "type": "leaf",
+            "state": {
+              "type": "all-properties",
+              "state": {
+                "sortOrder": "frequency",
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-archive",
+              "title": "添加笔记属性"
+            }
+          },
+          {
+            "id": "3f40e2c4696caa15",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "大纲"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:打开快速切换": false,
+      "graph:查看关系图谱": false,
+      "canvas:新建白板": false,
+      "daily-notes:打开/创建今天的日记": false,
+      "templates:插入模板": false,
+      "command-palette:打开命令面板": false,
+      "bases:新建数据库": false
+    }
+  },
+  "active": "4fad49a86b82581f",
+  "lastOpenFiles": [
+    "wiki/meta/progress-snapshot.md",
+    "wiki/meta/progress-snapshot.md.tmp.508.d988c5e55bb3",
+    "wiki/meta",
+    "软件测试知识体系.md",
+    "wiki/syntheses/software-testing-knowledge-map.md",
+    "wiki/concepts/test-case-design.md",
+    "wiki/concepts/test-case-design.md.tmp.508.bed9a0c9b174",
+    "wiki/concepts/performance-testing.md",
+    "wiki/concepts/performance-testing.md.tmp.508.99eefa0387f6",
+    "wiki/concepts/api-testing-basics.md",
+    "wiki/concepts/api-testing-basics.md.tmp.508.95a94a86600f",
+    "wiki/concepts/spring-boot-core.md",
+    "wiki/concepts/spring-boot-core.md.tmp.508.75d917bb0e8b",
+    "wiki/concepts/auto-framework-design.md",
+    "wiki/concepts/auto-framework-design.md.tmp.508.dd6dc6fa43e5",
+    "wiki/concepts/jvm-basics.md",
+    "wiki/concepts/jvm-basics.md.tmp.508.ed93b1e54978",
+    "wiki/concepts/concurrency-java.md",
+    "wiki/concepts/concurrency-java.md.tmp.508.959c5293f5a8",
+    "wiki/concepts/junit-testng.md",
+    "wiki/concepts/junit-testng.md.tmp.508.7379ad1e6de9",
+    "wiki/concepts/rest-assured-api.md",
+    "wiki/concepts/ai-agent.md",
+    "wiki/concepts/rag-pattern.md",
+    "wiki/concepts/function-calling.md",
+    "wiki/concepts/collections-framework.md",
+    "wiki/syntheses/java-dev-knowledge-map.md",
+    "wiki/concepts/prompt-engineering.md",
+    "wiki/concepts/selenium-webdriver.md",
+    "wiki/syntheses/ai-app-dev-knowledge-map.md",
+    "wiki/concepts/test-automation-types.md",
+    "wiki/syntheses/career-plan-daily-tasks.md",
+    "wiki/syntheses/career-plan-testing-with-ai-java.md",
+    "templates/daily-note.md",
+    "wiki/syntheses/prompt-engineering-full-picture.md",
+    "提示词原则论文.md"
+  ]
+}
