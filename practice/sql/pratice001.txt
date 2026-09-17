@@ -1,0 +1,97 @@
+1.select * from users asc age;
+2.select * from users where city in("北京"，”上海“);
+  select * from users where city = "北京" or city = "上海";
+3.select product_name from products where price between 1000 and 5000;
+4.select usersname from users where usersname LIKE "%zh%"
+5.select usersname from users order BY user_id asc limit 3;
+6.select * from orders order BY asc amount
+ 
+ 二、聚合统计
+ select city, COUNT(*) AS 用户数量 from users GROUP BY city order BY 用户数量 DESC;
+ 
+ #有点混乱了
+ select category  AS 商品分类, COUNT(*) AS 商品数量,AVG(price) AS 平均价格, MAX(price) AS 最高价格,from products GROUP BY category order BY price DESC;
+ 
+ #废了好大劲写的
+ select u.username,SUM(o.amount) AS 总金额 , COUNT(*) AS 订单数 from orders AS o left join users AS u on o.user_id = u.user_id  GROUP BY u.username;
+ 已取消的订单金额不算总金额
+ 
+ #下次复习
+ select user_id,  SUM(amount) AS 总金额 from orders where status='completed' GROUP BY user_id order BY SUM(amount) DESC limit 3
+ 
+ 
+ 三、三表查询
+ #第 13 题：查询每笔订单详情
+ # 字段：订单号、用户名、商品名、数量、金额、状态、下单时间
+ #（三表 JOIN：orders × users × products，就是刚讲的三表拼法）
+ select o.order_id,o.amount,o.status,o.order_date,o.quantity,u.username,p.product_name 
+ from orders o
+ left join users u on o.user_id = u.user_id  
+ left join products p on p.product_id = o.product_id
+ 
+ 第 14 题：每个用户买过哪些商品
+
+ ▎ 要求：用户名 → 商品名列表，商品不重复（DISTINCT）
+ ▎ 例子：zhangsan 买过 iPhone 15 和 AirPods Pro
+
+  提示（想 10 秒再看）：
+ - 还是三表拼（orders 是中间桥梁）
+  - 加 DISTINCT 去重——如果同一用户买过两次同一商品，不DISTINCT 就会出现两行一样的
+  - 想一想：这题用 INNER 还是 LEFT？
+  
+ select DISTINCT u.username,p.product_name from orders o 
+ INNER join users u on u.user_id = o.user_id
+ INNER join products p on p.product_id = o.product_id
+ 
+  第 15 题：找出从没被下单过的商品 ⭐
+
+  ▎ 提示（题目里已经给了）：LEFT JOIN + IS NULL
+  ▎ 这是 JOIN 面试的经典考点，基本每次必考
+
+  动手前先想 3 秒这三个问题：
+  1. 谁是左表？（"商品不能少"→商品放哪边？）
+  2. LEFT JOIN 之后，没被下单的商品在 orders 那边是什么值？
+  3. 怎么筛出"没被下单"？——注意：不能写 o.order_id = NULL（= NUL永远不成立，必须用 IS NULL，这是 MySQL 的经典大坑）
+  
+select p.product_name from products p
+left join orders o on o.product_id = p.product_id
+where o.product_id IS NULL
+
+ 第 16 题：查询买过 iPhone 15 的用户名单
+
+  ▎ 提示：两种写法都行——
+  ▎ ①三表 JOIN（products →orders →users）
+  ▎ ②WHERE p.product_name = 'iPhone 15' 条件直接写 JOIN 后面
+
+  提示给了，先自己读题再写——想想你需要哪张表的信息（只要用户名），怎么拼最少？
+  
+  select u.username from orders o
+  left join users u on o.user_id = u.user_id
+  left join products p on p.product_id = o.product_id
+  where p.product_name = "iPhone 15"
+  
+  第 17 题：每个商品被下单的总数量，没卖出去的也要显示 0 ⭐
+
+  ▎ 要求：8 个商品每个都要出现，Kindle 没卖出去 → 显示 0
+  ▎ 提示：LEFT JOIN + GROUP BY + IFNULL(SUM(quantity), 0)
+
+  读题三问：
+  1. 谁不能少？ 商品全保留 →谁放左表？
+  2. 分组按什么？GROUP BY 按商品
+  3. Kindle 那边 SUM(quantity) 是 NULL →用 IFNULL(..., 0) 补成 0
+  
+select 
+p.product_name,
+IFNULL(SUM(o.quantity),0) AS '总数量'
+from products p
+left join orders o on o.product_id = p.product_id
+GROUP BY p.product_name
+
+
+SELECT 字段1, 字段2, 聚合函数
+FROM 表
+JOIN 关联表 ON 条件
+GROUP BY 非聚合字段;
+
+
+

@@ -2,7 +2,7 @@
  * Part 1 — 封装练习
  * 表示一条测试用例
  */
-public class TestCase {
+public abstract class TestCase {
 
     // ===== 私有字段 =====
     private int id;
@@ -57,11 +57,8 @@ public class TestCase {
         this.status = status;
     }
 
-    // ===== 方法 =====
-    public void execute() {
-        this.status = "PASS";
-        System.out.println("执行测试用例: " + this.name);
-    }
+    // ===== 抽象方法 =====
+    public abstract void execute();
 
     @Override
     public String toString() {
@@ -70,23 +67,40 @@ public class TestCase {
 
     // ===== 测试入口 =====
     public static void main(String[] args) {
-        // 正常流程：创建一个 TestCase 对象，调 execute()，打印 toString()
-        TestCase tc = new TestCase(1, "登录功能测试", "P0");
-        tc.execute();
-        System.out.println(tc.toString());
+        // ===== Part 3 — 多态测试 =====
+        TestCase[] tests = new TestCase[3];
+        tests[0] = new UITestCase(1, "UI测试", "P0", "Firefox");
+        tests[1] = new APITestCase(2, "API测试", "P2", "/api/users", "POST");
+        tests[2] = new UITestCase(3, "兼容性测试", "P1", "Edge");
 
-        // 测试异常情况：传非法 priority
+        // 遍历数组，逐个执行（多态：编译看 TestCase，运行看实际类型）
+        for (TestCase t : tests) {
+            t.execute();
+        }
+
+        // 测试异常情况：传非法 priority（通过子类触发父类的 setter 校验）
         try {
-            new TestCase(2, "异常测试", "P5");
+            new UITestCase(4, "异常测试", "P5", "Chrome");
         } catch (IllegalArgumentException e) {
             System.out.println("priority 校验通过 —— 捕获异常: " + e.getMessage());
         }
 
         // 测试异常情况：传非法 status
         try {
-            tc.setStatus("UNKNOWN");
+            tests[0].setStatus("UNKNOWN");
         } catch (IllegalArgumentException e) {
             System.out.println("status 校验通过 —— 捕获异常: " + e.getMessage());
+        }
+
+        // ===== Part 4 — 接口多态测试 =====
+        System.out.println("\n--- 生成测试报告 ---");
+        Reportable[] reports = new Reportable[3];
+        reports[0] = new UITestCase(4, "登录页面", "P0", "Chrome");
+        reports[1] = new APITestCase(5, "用户接口", "P1", "/api/user", "GET");
+        reports[2] = new UITestCase(6, "注册页面", "P2", "Edge");
+
+        for (Reportable r : reports) {
+            r.printReport();  // 默认方法：打印报告
         }
     }
 }

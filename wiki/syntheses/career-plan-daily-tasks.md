@@ -227,9 +227,10 @@
 
 | 时间 | 时长 | 内容 | 类型 |
 |------|------|------|------|
-| 09:00-11:00 | 2h | 🔵 **Jenkins / GitHub Actions**：<br>1. 把项目推 GitHub<br>2. 写一个 .github/workflows/test.yml<br>3. 让 CI 自动跑测试 + 生成 Allure 报告 | 实操 |
-| 11:00-12:00 | 1h | 🔵 理解 CI/CD 在测试中的应用（PR 自动跑测试、门禁机制） | 学习 |
-| 14:00-17:00 | 3h | 📝 **第 3 周大整理**：<br>1. 整理所有 API 测试代码<br>2. 画自动化框架架构图<br>3. 更新面试题本 | 输出 |
+| 09:00-10:00 | 1h | 🔵 **Docker 基础**：<br>1. 安装 Docker Desktop<br>2. docker pull / run / ps / stop / rm 命令练习<br>3. 用 Docker 启动一个 MySQL 容器 | 实操 |
+| 10:00-12:00 | 2h | 🔵 **Docker Compose + CI**：<br>1. 写 docker-compose.yml 编排 MySQL + Redis<br>2. 把项目推 GitHub<br>3. 写一个 .github/workflows/test.yml<br>4. 让 CI 自动跑测试 + 生成 Allure 报告 | 实操 |
+| 14:00-16:00 | 2h | 🔵 **CI/CD 深度**：<br>1. 在 CI 流水线中启动 MySQL 服务容器<br>2. 理解 CI 环境中的测试数据管理<br>3. 配置 PR 门禁（测试不通过不能合入） | 实操 |
+| 16:00-17:00 | 1h | 📝 **第 3 周大整理**：<br>1. 整理所有 API 测试代码 + docker-compose.yml<br>2. 画自动化框架架构图（含 Docker + CI）<br>3. 更新面试题本 | 输出 |
 
 **第 3 周检查清单**：
 - [ ] Rest Assured 能测 GET/POST/PUT/DELETE
@@ -237,7 +238,8 @@
 - [ ] 封装了 HTTP 工具类
 - [ ] API + UI 集成测试能跑通
 - [ ] Allure 报告生成成功
-- [ ] GitHub Actions CI 配置完成
+- [ ] Docker Compose 搭建测试环境完成
+- [ ] GitHub Actions CI 配置完成（含 Docker 服务容器）
 
 ---
 
@@ -253,7 +255,7 @@
 | ⏰ 19:30-21:00 | 🔵 **自动化框架完善**（见下方分解） |
 | ⏰ 21:00-21:30 | 📝 记录、整理、发 GitHub |
 
-#### 自动化框架完善清单（6 天依次做）：
+#### 自动化框架完善清单（7 天依次做）：
 
 | 天数 | 任务 | 知识点 |
 |------|------|--------|
@@ -263,6 +265,7 @@
 | **Day 25** | **数据库校验**：用 JDBC/MyBatis 直连数据库，验证数据落库是否正确 | SQL、数据库操作 |
 | **Day 26** | **日志体系**：统一日志 + 关键步骤截图 + 异常上下文记录 | 日志框架、文件操作 |
 | **Day 27** | **代码重构**：用设计模式优化框架（Factory 模式创建驱动、Strategy 模式切换策略） | 设计模式实战 |
+| **Day 28 补充** | **Docker 集成**：编写 Dockerfile + docker-compose.yml，让框架在容器中运行 | 容器化、环境管理 |
 
 #### Day 28（周末） — 综合验收
 
@@ -417,15 +420,17 @@
 
 | 时间 | 时长 | 内容 | 类型 |
 |------|------|------|------|
-| 09:00-11:00 | 2h | 📝 **知识体系大梳理**：把所有笔记通读一遍，补全遗漏 | 输出 |
-| 11:00-12:00 | 1h | 🔵 整理"测试面试题应答模板"（STAR 原则，每个问题配你的项目案例） | 面试 |
-| 14:00-16:00 | 2h | 🟢 刷 20 道 Java + Spring Boot 面试题 | 面试 |
+| 09:00-10:30 | 1.5h | 🛡️ **安全测试入门**：<br>1. OWASP Top 10 快速扫盲（至少记住了 5 个漏洞）<br>2. SQL 注入测试：在靶场上手动测一个登录注入<br>3. XSS 测试：输入 `<script>alert(1)</script>` 看是否被过滤 | 学习 |
+| 10:30-12:00 | 1.5h | 🛡️ **安全测试工具**：<br>1. 配置 Burp Suite 代理<br>2. 抓包并重放请求（Repeater）<br>3. 尝试越权测试：修改请求中的用户 ID | 实操 |
+| 14:00-15:00 | 1h | 📝 **知识体系大梳理**：把所有笔记通读一遍，补全遗漏 | 输出 |
+| 15:00-16:00 | 1h | 🔵 整理"测试面试题应答模板"（STAR 原则，每个问题配你的项目案例） | 面试 |
 | 16:00-17:00 | 1h | 📝 **第 6 周复盘** + 看看最初的面试题本，对比进步 | 输出 |
 
 **第 6 周检查清单**：
 - [ ] AI Bug 分类器项目完成（GitHub）
 - [ ] JMeter 能完成一套完整的性能测试
 - [ ] AI + 性能测试结合（分析 JTL）
+- [ ] 安全测试入门完成（OWASP / SQL 注入 / XSS / Burp Suite）
 - [ ] 两个 AI 项目都推到了 GitHub
 - [ ] 60%+ 的面试题能自信回答
 
@@ -470,21 +475,32 @@
 9. "你怎么测试一个支付功能？（需要考虑金额边界、并发扣款、事务回滚）"
 10. "你怎么保证你的 AI 测试工具的结果是准确的？"
 
+**新增场景题（安全 + Docker + CI/CD）**：
+11. "你怎么测试一个接口是否存在 SQL 注入风险？"
+12. "你在测试中遇到过越权问题吗？怎么发现的？"
+13. "你怎么用 Docker 管理测试环境？有什么好处？"
+14. "CI 流水线中自动化测试失败了你会怎么处理？"
+15. "你怎么保证测试环境的数据和配置在不同环境间一致？"
+
 **每个问题都用 STAR 原则 + 你的项目经历来回答**。
 
 ##### 项目复盘清单（下午做）：
 
 - [ ] `test-case-manager` — README 完善，加效果截图
 - [ ] `web-auto-test` — 架构图 + 运行说明 + 技术栈标签
+- [ ] `web-auto-test` — 补充 Docker 部署说明（docker-compose.yml）
+- [ ] `web-auto-test` — CI 流水线文件（.github/workflows/test.yml）
 - [ ] `ai-test-case-gen` — 产品截图 + 难点（Prompt 设计）+ 你的决定
 - [ ] `ai-bug-classifier` — 同上
 - [ ] GitHub 个人主页整理：简介写清楚"测试开发 | AI 赋能测试"
 
 ##### 你的"面试故事线"（准备好这样讲）：
 
-> "我有 Java 开发基础，后来发现相比于业务功能开发，我对**质量和效率**更感兴趣。于是我系统学习了软件测试，搭建了一套基于 Java + Selenium + Rest Assured 的自动化测试框架，实现了 CI 自动运行 + Allure 报告。
+> "我有 Java 开发基础，后来发现相比于业务功能开发，我对**质量和效率**更感兴趣。于是我系统学习了软件测试，搭建了一套基于 Java + Selenium + Rest Assured 的自动化测试框架，并用 Docker Compose 管理测试环境、配置了 GitHub Actions CI 流水线，每次代码提交自动运行测试生成 Allure 报告。
 >
-> 同时我关注到 AI 正在改变测试行业，我动手开发了一个 AI 测试用例生成器和 Bug 分类器——用 Spring Boot + LLM API 实现，输入功能描述就能自动生成边界覆盖的测试用例。这让我理解到 AI 不是替代测试人员，而是让测试人员效率翻倍的工具。
+> 同时我关注到 AI 正在改变测试行业，我动手开发了一个 AI 测试用例生成器和 Bug 分类器——用 Spring Boot + LLM API 实现，输入功能描述就能自动生成边界覆盖的测试用例。
+>
+> 在功能测试中我也会主动覆盖安全场景，比如 SQL 注入、XSS 和越权测试，用 Burp Suite 抓包分析接口安全。
 >
 > 我希望能加入一个重视测试质量的团队，用我的 Java 功底 + 自动化能力 + AI 思维创造价值。"
 
@@ -523,7 +539,7 @@
 个人信息：Java开发→测试开发转型
 
 技能标签：
-Java / Selenium / Rest Assured / TestNG / JUnit / Maven / Git / Jenkins / GitHub Actions / Spring Boot / MyBatis / MySQL / LLM API / Prompt Engineering
+Java / Selenium / Rest Assured / TestNG / JUnit / Maven / Git / Jenkins / GitHub Actions / Docker / Spring Boot / MyBatis / MySQL / Redis / LLM API / Prompt Engineering / Burp Suite / 安全测试基础
 
 项目经验（每个项目写4点）：
 1. 项目背景（为什么做）
@@ -532,6 +548,7 @@ Java / Selenium / Rest Assured / TestNG / JUnit / Maven / Git / Jenkins / GitHub
 4. 项目成果（量化效果）
 
 ⚠️ 明确写出："理解AI+测试的结合点，有AI测试工具开发经验"
+⚠️ 加分标签："Docker容器化部署测试环境" / "CI/CD流水线搭建" / "安全测试基础"
 ```
 
 ##### 4. 多次真实面试（真正的冲刺）

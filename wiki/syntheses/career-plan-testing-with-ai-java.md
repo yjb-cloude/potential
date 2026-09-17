@@ -195,18 +195,40 @@ graph LR
 | 6-7 | 引入 Rest Assured 做 API 测试 | HTTP 交互、JSON 处理 |
 | 8-9 | 实现 API + UI 混合测试（API 创建数据，UI 验证展示） | 数据流思想 |
 | 10 | 集成 Allure 报告 + 失败自动截图 | 切面思维、事件监听 |
-| 11-12 | 将项目推 GitHub + 配置 GitHub Actions CI | CI/CD 基础 |
-| 13-14 | **复习+整理体系** → 形成自己的自动化知识导图 | 系统化思维 |
+| 11-12 | **Docker 基础**：用 Docker 搭建测试环境（MySQL + Redis + 被测应用），编写 docker-compose.yml | 容器化思维 |
+| 13 | **CI/CD 深度**：编写 Jenkins Pipeline / GitHub Actions 完整流水线（构建→测试→报告→通知） | DevOps 思维 |
+| 14 | **复习+整理体系** → 形成自己的自动化知识导图 | 系统化思维 |
+
+**Docker 学习要点**（嵌入 Day 11-12）：
+
+```
+核心命令       →  docker pull / run / ps / stop / rm / exec / logs
+Docker Compose →  用 docker-compose.yml 编排 MySQL + Redis + 被测应用
+Selenium Grid  →  docker-compose 启动 Chrome/Firefox 节点，测试用例远程执行
+测试场景       →  CI 中每次运行前启动干净容器，运行后销毁，保证环境隔离
+```
+
+**CI/CD 学习要点**（嵌入 Day 13）：
+
+```
+GitHub Actions →  .github/workflows/test.yml（编译→单元测试→集成测试→报告上传）
+Jenkins       →  Jenkinsfile（Declarative Pipeline：Checkout→Build→Test→Report→Notify）
+质量门禁      →  测试通过率 < 90% 则阻断发布；Allure 报告自动归档
+失败通知      →  流水线失败自动发送钉钉/邮件通知
+```
 
 #### 这部分答成的效果
-- **Java**：你用了 OOP、设计模式、集合、IO、Lambda
-- **测试**：你做了真正的自动化，理解了框架
-- **成果物**：一个 GitHub 公开项目，面试可以直接展示
+- **Java**：你用了 OOP、设计模式、集合、IO、Lambda、多线程
+- **测试**：你做了真正的自动化，理解了框架 + CI/CD + Docker 环境管理
+- **DevOps**：你掌握了 Docker 基础操作和 CI 流水线编写
+- **成果物**：一个 GitHub 公开项目（含 Docker 部署 + CI 流水线），面试可以直接展示
 
 #### 本周产出
 - ✅ 一个完整的自动化测试框架项目（GitHub）
 - ✅ 5+ 条自动化的 UI 用例 + 5+ 条 API 用例
 - ✅ Allure 报告展示
+- ✅ Docker Compose 搭建测试环境（docker-compose.yml）
+- ✅ CI/CD 流水线（GitHub Actions + Jenkins Pipeline 二选一）
 - ✅ 一篇总结：`自动化测试框架搭建笔记.md`
 
 ---
@@ -306,6 +328,48 @@ AI 输出:
 
 ---
 
+### 第三阶段（补充）：安全测试入门 + Docker 环境管理
+
+> 如果 AI 项目推进顺利、进度超前，可在第 5-6 周的周末穿插以下内容。
+
+#### 🛡️ 安全测试基础（周末 2 天速成）
+
+**为什么测试人员要学安全测试**：
+- 面试中问到"你怎么保证系统安全"能答得上来
+- 功能测试中主动发现安全漏洞（SQL 注入、越权）是加分项
+- 安全测试 + AI 结合 = 测试人员差异化亮点
+
+**速成路线（2 天）**：
+
+| 时间段 | 内容 | 实操 |
+|--------|------|------|
+| Day 1 上午 | OWASP Top 10 概览：理解 10 大漏洞的本质 | 看 OWASP 官方文档或一篇总结文章 |
+| Day 1 下午 | SQL 注入 + XSS 测试 | 在 DVWA 或靶场中手动测试 SQL 注入和 XSS |
+| Day 2 上午 | CSRF + 越权测试 | 用 Burp Suite 抓包改请求测试越权 |
+| Day 2 下午 | 工具实操 + 总结 | Burp Suite 代理配置 + 感受安全测试流程 |
+
+**学习资源**：
+- [DVWA](https://github.com/digininja/DVWA)（Damn Vulnerable Web Application）— 本地搭建的漏洞靶场
+- [OWASP Top 10 中文版](https://owasp.org/www-project-top-ten/)
+- Burp Suite 社区版（免费够用）
+
+#### 🐳 Docker 测试环境管理（补充 Day 11-12）
+
+已在前一阶段 CI/CD 部分嵌入 Docker 内容，这里列出更完整的 Docker 知识：
+
+```bash
+# 测试面试常考的 Docker 命令
+docker pull / run / ps / stop / rm / logs / exec
+docker-compose up -d / down / ps / logs
+
+# 面试要能讲出来的场景
+"我在项目中使用 Docker Compose 一键搭建测试环境，
+包含 MySQL + Redis + 被测应用，每次 CI 运行前启动新容器，
+运行后销毁，保证了测试环境的隔离性和可重复性。"
+```
+
+---
+
 ### 第四阶段：面试冲刺 + 知识整合（第 7-8 周）
 
 **目标**：将前 6 周的知识体系化，针对面试查漏补缺。
@@ -343,6 +407,23 @@ AI 输出:
 - QPS / TPS / 响应时间 / 吞吐量 / P99
 - 性能测试流程（基准测试 → 负载测试 → 压力测试 → 稳定性测试）
 - 常见性能瓶颈定位思路（慢 SQL、缺少缓存、连接池不足）
+
+**安全测试（差异化亮点 ⭐）**：
+- OWASP Top 10 — 能说出 5 个以上的漏洞类型及解释
+- SQL 注入原理与测试方法（回答时结合实战："我在功能测试中会主动测试所有输入框的 SQL 注入"）
+- XSS（反射型/存储型/DOM 型）的区别与测试
+- CSRF 防御机制（Token / SameSite / 二次验证）
+- 越权测试（水平越权 vs 垂直越权）
+- Burp Suite 基本使用（Proxy / Repeater / Intruder）
+- 面试回答策略：**"虽然我没有专门做过安全测试岗位，但在功能测试中我会主动覆盖安全场景，比如 SQL 注入、XSS 和越权测试"**
+
+**CI/CD + Docker（项目经验亮点 ⭐）**：
+- Docker 核心命令和 Docker Compose 多容器编排
+- "我在项目中使用 Docker 搭建隔离的测试环境"
+- CI 流水线阶段：Checkout → Build → Test → Report → Notify
+- GitHub Actions 和 Jenkins 的基本区别
+- Selenium Grid + Docker 分布式测试
+- **面试回答策略**："我将自动化测试集成了 CI 流水线，每次代码提交自动触发，配合 Docker 保证环境一致性，失败自动通知团队"
 
 **真实世界场景题**（面试最爱）：
 > "给你一个电商的购物车功能，你怎么测试？"

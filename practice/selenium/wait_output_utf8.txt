@@ -1,0 +1,29 @@
+﻿========== ʵ�� 1����ʽ�ȴ� ==========
+java : 8�� 27, 2026 4:44:15 ���� org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
+At line:1 char:289
++ ... ent cp.txt); java -cp $cp WaitPractice > wait_output.txt 2>&1; Write- ...
++                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (8�� 27, 2026 4:...indNearestMatch:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+����: Unable to find CDP implementation matching 137
+8�� 27, 2026 4:44:15 ���� org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
+����: Unable to find version of CDP to use for 137.0.7151.69. You may need to include a dependency on a specific versio
+n of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.21.0` where the version ("v86"
+) matches the version of the chromium-based browser you're using and the version number of the artifact is the same as 
+Selenium's.
+? ��ʽ�ȴ��ҵ�Ԫ�أ���ʱ: 13ms
+ҳ�����: Products ?
+
+========== ʵ�� 2����ʽ�ȴ����Ƽ��� ==========
+8�� 27, 2026 4:44:38 ���� org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
+����: Unable to find CDP implementation matching 137
+8�� 27, 2026 4:44:38 ���� org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
+����: Unable to find version of CDP to use for 137.0.7151.69. You may need to include a dependency on a specific versio
+n of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.21.0` where the version ("v86"
+) matches the version of the chromium-based browser you're using and the version number of the artifact is the same as 
+Selenium's.
+? ��ʽ�ȴ��ҵ�Ԫ�أ���ʱ: 38ms
+ҳ�����: Products ?
+
+? ���ֵȴ��Ա���ɣ�
