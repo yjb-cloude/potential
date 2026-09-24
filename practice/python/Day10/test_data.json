@@ -1,0 +1,50 @@
+{
+    "login_cases": [
+        {
+            "case_id": "LOGIN_001",
+            "desc": "正常登录",
+            "username": "admin",
+            "password": "123456",
+            "expect_success": true,
+            "expect_code": 200
+        },
+        {
+            "case_id": "LOGIN_002",
+            "desc": "密码错误",
+            "username": "admin",
+            "password": "wrong",
+            "expect_success": false,
+            "expect_code": 401
+        },
+        {
+            "case_id": "LOGIN_003",
+            "desc": "用户名为空",
+            "username": "",
+            "password": "123456",
+            "expect_success": false,
+            "expect_code": 400
+        },
+        {
+            "case_id": "LOGIN_004",
+            "desc": "用户名不存在",
+            "username": "ghost999",
+            "password": "123456",
+            "expect_success": false,
+            "expect_code": 401
+        }
+    ],
+    "production_plan_cases": [
+        {
+            "case_id": "PLAN_001",
+            "desc": "正常新增生产计划",
+            "plan_name": "自动化测试计划",
+            "expect_success": true
+        },
+        {
+            "case_id": "PLAN_002",
+            "desc": "计划名称为空",
+            "plan_name": "",
+            "expect_success": false
+        }
+    ]
+}

@@ -13,11 +13,12 @@ import json
 # 用 requests.get 请求 https://httpbin.org/get
 # 打印状态码和响应体（用 .json() 解析）
 # 提示：resp = requests.get(url)
-resp = requests.get("https://httpbin.org/get")
-print(f"TODO1 状态码: {resp.status_code}")
-print(f"TODO1 响应体: {resp.json()}")
-
-print(f"TODO1 状态码: {resp.status_code if resp else '未完成'}")
+try:
+    resp = requests.get("https://httpbin.org/get", timeout=5)
+    print(f"TODO1 状态码: {resp.status_code}")
+    print(f"TODO1 响应体: {resp.json()}")
+except Exception as e:
+    print(f"TODO1 请求失败: {e}")
 
 
 # ============================================================
@@ -27,10 +28,11 @@ print(f"TODO1 状态码: {resp.status_code if resp else '未完成'}")
 # 携带参数：keyword=python, page=1, size=10
 # 打印服务端收到的参数（resp.json()['args']）
 # 提示：params={"keyword": "python", ...}
-resp = requests.get("https://httpbin.org/get", params={"keyword": "python", "page": 1, "size": 10})
-print(f"TODO2 参数: {json.dumps(resp.json()['args'])}")
-
-print(f"TODO2 参数: {resp.json()['args'] if resp else '未完成'}")
+try:
+    resp = requests.get("https://httpbin.org/get", params={"keyword": "python", "page": 1, "size": 10}, timeout=5)
+    print(f"TODO2 参数: {resp.json()['args']}")
+except Exception as e:
+    print(f"TODO2 请求失败: {e}")
 
 
 # ============================================================
@@ -40,10 +42,11 @@ print(f"TODO2 参数: {resp.json()['args'] if resp else '未完成'}")
 # 提交 JSON：{"name": "张三", "age": 25, "skills": ["Python", "SQL"]}
 # 打印服务端收到的 JSON（resp.json()['json']）
 # 提示：json={"name": "张三", ...}
-resp = requests.post("https://httpbin.org/post", json={"name": "张三", "age": 25, "skills": ["Python", "SQL"]})
-print(f"TODO3 收到的数据: {json.dumps(resp.json()['json'])}")
-
-print(f"TODO3 收到的数据: {resp.json()['json'] if resp else '未完成'}")
+try:
+    resp = requests.post("https://httpbin.org/post", json={"name": "张三", "age": 25, "skills": ["Python", "SQL"]}, timeout=5)
+    print(f"TODO3 收到的数据: {resp.json()['json']}")
+except Exception as e:
+    print(f"TODO3 请求失败: {e}")
 
 
 # ============================================================
@@ -55,10 +58,11 @@ print(f"TODO3 收到的数据: {resp.json()['json'] if resp else '未完成'}")
 #   Content-Type: application/json
 # 打印服务端看到的所有 headers（resp.json()['headers']）
 # 提示：headers={...}
-resp = requests.get("https://httpbin.org/headers", headers={"Authorization": "Bearer my-token-123", "Content-Type": "application/json"})
-
-print(f"TODO4 headers: {json.dumps(resp.json()['headers'])}")
-print(f"TODO4 headers: {resp.json()['headers'] if resp else '未完成'}")
+try:
+    resp = requests.get("https://httpbin.org/headers", headers={"Authorization": "Bearer my-token-123", "Content-Type": "application/json"}, timeout=5)
+    print(f"TODO4 headers: {resp.json()['headers']}")
+except Exception as e:
+    print(f"TODO4 请求失败: {e}")
 
 
 # ============================================================
@@ -75,8 +79,13 @@ urls = [
     "https://httpbin.org/status/500",
 ]
 # 用 for 循环遍历 urls，每个打印 "URL → 状态码 → 成功/失败"
-# for url in urls:
-#     ...
+for url in urls:
+    try:
+        resp = requests.get(url, timeout=5)
+        status = "[OK] 成功" if resp.status_code == 200 else "[FAIL] 失败"
+        print(f"{url} → {resp.status_code} → {status}")
+    except Exception as e:
+        print(f"{url} → 请求失败: {e}")
 
 
 # ============================================================
@@ -94,8 +103,16 @@ urls = [
 # 提示：参考 lesson_requests.py 里的 safe_get
 
 def get_user_info(user_id: int) -> dict:
-    # 在这里写代码
-    pass
+    try:
+        resp = requests.get(
+            "https://httpbin.org/get",
+            params={"user_id": user_id},
+            timeout=3,
+        )
+        resp.raise_for_status()   # 4xx/5xx 抛异常
+        return {"success": True, "data": resp.json()}
+    except Exception as e:
+        return {"success": False, "error": str(e)}
 
 # 测试
 result1 = get_user_info(1)
@@ -116,19 +133,35 @@ print(f"\nTODO6 查询用户1: {result1}")
 # 测试代码已经在下面写好了，你只需要补全类的实现
 
 class MiniApiClient:
-    # 在这里写代码
-    pass
+    """迷你 API 客户端"""
 
-# --- 测试（写完类后取消注释运行）---
-# api = MiniApiClient("https://httpbin.org")
-#
-# # GET 测试
-# result = api.get("/get", params={"test": "hello"})
-# print(f"TODO7 GET: {result['args']}")
-#
-# # POST 测试
-# result = api.post("/post", data={"msg": "from MiniApiClient"})
-# print(f"TODO7 POST: {result['json']}")
+    def __init__(self, base_url: str):
+        self.base_url = base_url.rstrip("/")
+
+    def _check(self, resp) -> dict:
+        if resp.status_code != 200:
+            print(f"警告: 状态码 {resp.status_code}")
+        return resp.json()
+
+    def get(self, path: str, params: dict = None) -> dict:
+        url = f"{self.base_url}{path}"
+        resp = requests.get(url, params=params, timeout=5)
+        return self._check(resp)
+
+    def post(self, path: str, data: dict = None) -> dict:
+        url = f"{self.base_url}{path}"
+        resp = requests.post(url, json=data, timeout=5)
+        return self._check(resp)
+
+
+# --- 测试 ---
+api = MiniApiClient("https://httpbin.org")
+
+result = api.get("/get", params={"test": "hello"})
+print(f"TODO7 GET: {result['args']}")
+
+result = api.post("/post", data={"msg": "from MiniApiClient"})
+print(f"TODO7 POST: {result['json']}")
 
 
 # ============================================================
@@ -151,7 +184,33 @@ class MiniApiClient:
 #   session = requests.Session()
 #   session.headers["Authorization"] = f"Bearer {token}"
 
+# 步骤 1：模拟登录，拿 token
+session = requests.Session()
+try:
+    resp = session.post(
+        "https://httpbin.org/post",
+        json={"username": "admin", "password": "123456"},
+        timeout=5,
+    )
+    print(f"TODO8 登录响应: {resp.json()['json']}")
+    token = "fake-token-from-server"
+except Exception as e:
+    print(f"TODO8 登录失败: {e}")
+    token = None
+
+# 步骤 2：设置 token 到 session 的 headers
+if token:
+    session.headers["Authorization"] = f"Bearer {token}"
+
+    # 步骤 3：用 session 访问，token 自动带上
+    try:
+        resp = session.get("https://httpbin.org/headers", timeout=5)
+        auth = resp.json()["headers"].get("Authorization", "没有 Authorization 头")
+        print(f"TODO8 服务端看到的 Authorization: {auth}")
+    except Exception as e:
+        print(f"TODO8 请求失败: {e}")
+
 
 print("\n" + "=" * 50)
-print("🏁 Day 7 练习完成！运行方式：python practice.py")
+print("Day 7 练习完成！运行方式：python practice.py")
 print("=" * 50)

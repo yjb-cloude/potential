@@ -18,3 +18,6 @@ Thumbs.db
 
 # 本地配置
 *.local
+
+# 含公司内网地址/真实 token 的本地脚本，禁止上传
+kafkatest_batch.py
